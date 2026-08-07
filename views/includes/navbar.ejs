@@ -1,70 +1,204 @@
+
 <style>
- .search-btn {
-  background-color: #fe424d;
-  color: #ffff;
-  border-radius: 25px;
-  padding: 0 1rem 0 1rem;
- }
+  .search-btn {
+    background-color: #fe424d;
+    color: #ffff;
+    border-radius: 25px;
+    padding: 0 1rem 0 1rem;
+  }
 
- .search-btn:hover {
-  background-color: #fe424d;
-  color: #ffff;
- }
+  .search-btn:hover {
+    background-color: #fe424d;
+    color: #ffff;
+  }
 
- .search-btn i {
-  display: inline;
-  margin-right: 0.5rem;
-  font-size: 1rem;
+  .search-btn i {
+    display: inline;
+    margin-right: 0.5rem;
+    font-size: 1rem;
+  }
 
- }
-
- .search-inp{
-  border-radius: 25px;
-  padding: 0.5rem 3rem 0.5rem 3rem;
- }
+  .search-inp {
+    border-radius: 25px;
+    padding: 0.7rem 3rem 0.7rem 3rem;
+    font-size: 0.9rem;
+  }
 </style>
-
-
 
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
+
+    <!-- Logo -->
+    <a class="navbar-brand" href="/listings">
+      <i class="fa-regular fa-compass"></i>
+    </a>
+
+<!-- Toggler for mobile -->
     <button
-     class="navbar-toggler"
-     type="button"
-     data-bs-toggle="collapse" 
-     data-bs-target="#navbarNavAltMarkup" >
-     
-     <span class="navbar-toggler-icon"></span>
+      class="navbar-toggler d-md-none"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar"
+    >
+      <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+    <!-- Desktop Navbar -->
+    <div
+      class="collapse navbar-collapse d-none d-md-block"
+      id="navbarNavAltMarkup"
+    >
+
+      <!-- Explore -->
       <div class="navbar-nav">
         <a class="nav-link" href="/listings">Explore</a>
       </div>
+
+      <!-- Search -->
       <div class="navbar-nav ms-auto">
-    <form class="d-flex" role="search" action="/listings" method="GET">
-        <input
+        <form
+          class="d-flex"
+          role="search"
+          action="/listings"
+          method="GET"
+        >
+          <input
             class="form-control me-2 search-inp"
             type="search"
             name="search"
             placeholder="Search destinations"
-        />
-        <button class="btn search-btn" type="submit">
+          />
+<button class="btn search-btn" type="submit">
             <i class="fa-solid fa-magnifying-glass"></i>
             Search
-        </button>
-    </form>
-</div>
+          </button>
+        </form>
+      </div>
+
+      <!-- Right Side Links -->
       <div class="navbar-nav ms-auto">
-        <a class="nav-link" href="/listings/new">Airbnb your home</a>
-        <% if(!currUser) {%>
-        <a class="nav-link"  href="/signup"><b>Sign up</b></a>
-        <a class="nav-link" href="/login"><b>Log in</b></a>
+
+        <a class="nav-link" href="/listings/new">
+          Airbnb your home
+        </a>
+
+        <% if (!currUser) { %>
+
+          <a class="nav-link" href="/signup">
+            <b>Sign up</b>
+          </a>
+
+          <a class="nav-link" href="/login">
+            <i class="fa-regular fa-circle-user"></i>
+            <b>Log in</b>
+          </a>
+
+        <% } else { %>
+<a class="nav-link" href="/logout">
+            <b>Log out</b>
+          </a>
+
         <% } %>
-        <% if(currUser) {%>
-        <a class="nav-link" href="/logout"><b>Log out</b></a>
-        <% } %>
+
       </div>
     </div>
+
+
+    <!-- Mobile Offcanvas Navbar -->
+    <div
+      class="offcanvas offcanvas-end d-md-none"
+      tabindex="-1"
+      id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel"
+    >
+
+      <!-- Offcanvas Header -->
+      <div class="offcanvas-header">
+
+        <h5
+          class="offcanvas-title"
+          id="offcanvasNavbarLabel"
+        >
+          Menu
+        </h5>
+
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+
+      </div>
+<!-- Offcanvas Body -->
+      <div class="offcanvas-body">
+
+        <!-- Navigation Links -->
+        <div class="navbar-nav">
+
+          <a class="nav-link" href="/listings">
+            Explore
+          </a>
+
+          <a class="nav-link" href="/listings/new">
+            Airbnb your home
+          </a>
+
+        </div>
+
+
+        <!-- Mobile Search -->
+        <form
+          class="d-flex my-3"
+          role="search"
+          action="/listings"
+          method="GET"
+        >
+
+          <input
+            class="form-control me-2 search-inp"
+            type="search"
+            name="search"
+            placeholder="Search destinations"
+          />
+<button
+            class="btn search-btn"
+            type="submit"
+          >
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Search
+          </button>
+
+        </form>
+
+
+        <!-- Login / Signup -->
+        <div class="navbar-nav">
+
+          <% if (!currUser) { %>
+
+            <a class="nav-link" href="/signup">
+              <b>Sign up</b>
+            </a>
+
+            <a class="nav-link" href="/login">
+              <i class="fa-regular fa-circle-user"></i>
+              <b>Log in</b>
+            </a>
+
+          <% } else { %>
+
+            <a class="nav-link" href="/logout">
+              <b>Log out</b>
+            </a>
+
+          <% } %>
+
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </nav>
