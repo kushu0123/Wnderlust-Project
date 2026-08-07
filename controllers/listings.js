@@ -8,15 +8,22 @@ const Listing = require("../models/listing");
 // };
 
 module.exports.index = async (req, res) => {
-    const { category } = req.query;
+    const { category, search } = req.query;
 
-    let allListings;
+    let filter = {};
 
     if (category) {
-        allListings = await Listing.find({ category });
-    } else {
-        allListings = await Listing.find({});
+        filter.category = category;
     }
+
+    if (search) {
+        filter.$or = [
+            { title: { $regex: search, $options: "i" } },
+            { location: { $regex: search, $options: "i" } }
+        ];
+    }
+
+    const allListings = await Listing.find(filter);
 
     res.render("listings/index", { allListings });
 };
